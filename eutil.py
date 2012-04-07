@@ -1,6 +1,13 @@
 from math import sqrt, ceil
 
 
+def take(iterable, n):
+    "Return first n items of the iterable as a list"
+    from itertools import islice
+
+    return list(islice(iterable, n))
+
+
 def divisors(n, small=False):
     d = [x for x in range(1, int(ceil(sqrt(n))) + 1) if (n % x) == 0]
     if not small:
@@ -27,6 +34,13 @@ def primes():
                 D.setdefault(p + q, []).append(p)
             del D[q]
         q += 1
+
+
+def triangle_numbers():
+    a = 1
+    while True:
+        yield sum(range(1, a + 1))
+        a += 1
 
 
 def rotations(lst):

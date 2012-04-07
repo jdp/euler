@@ -84,6 +84,14 @@ def euler_10():
     return sum(takewhile(lambda p: p < 2000000, primes()))
 
 
+def euler_12():
+    """What is the value of the first triangle number to have over five hundred divisors?"""
+    from itertools import dropwhile
+    from eutil import triangle_numbers, divisors
+
+    return dropwhile(lambda x: len(divisors(x)) < 500, triangle_numbers()).next()
+
+
 def euler_13():
     """Find the first ten digits of the sum of one-hundred 50-digit numbers."""
     numbers = [int(line) for line in open("data/13.txt")]
