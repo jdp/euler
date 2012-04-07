@@ -98,6 +98,35 @@ def euler_13():
     return str(sum(numbers))[:10]
 
 
+# TODO: functional style
+def euler_14():
+    """Find the longest sequence using a starting number under one million."""
+    lengths = {}
+
+    def sequence(n):
+        m = n
+        length = 1
+        while m != 1:
+            if m in lengths:
+                length += lengths[m]
+                break
+            if m % 2 == 0:
+                m = m / 2
+            else:
+                m = 3 * m + 1
+            length += 1
+        lengths[n] = length
+        return length
+
+    max_length, max_n = 0, 1
+    for n in range(1, 1000000):
+        length = sequence(n)
+        if length > max_length:
+            max_length = length
+            max_n = n
+    return max_n
+
+
 def euler_18():
     """Find the maximum sum travelling from the top of the triangle to the base."""
     triangle = [map(int, line.split()) for line in open("data/18.txt")]
@@ -150,7 +179,7 @@ def euler_35():
     for p in ps:
         rotate_perms = [int("".join(r)) for r in rotations(list(str(p)))]
         if reduce(__and__, [(x in ps) for x in rotate_perms]):
-            circular = circular + 1
+            circular += 1
     return circular
 
 
