@@ -19,19 +19,25 @@ def euler_2():
 
 def euler_3():
     """Find the largest prime factor of a composite number."""
+    from math import sqrt
     from itertools import takewhile
-    from eutil import divisors, primes
+    from eutil import primes
 
     num = 600851475143
-    ds = set(divisors(num, small=True))
-    ps = set(takewhile(lambda p: p <= max(ds), primes()))
-    return max(ps & ds)
+    ps = takewhile(lambda p: p < sqrt(num), primes())
+    return max([p for p in ps if num % p == 0])
 
 
 def euler_4():
     """Find the largest palindrome made from the product of two 3-digit numbers."""
     palindromes = [i * j for i in range(999, 100, -1) for j in range(990, 100, -11) if str(i * j) == str(i * j)[::-1]]
     return max(palindromes)
+
+
+def euler_5():
+    """What is the smallest number divisible by each of the numbers 1 to 20?"""
+    from eutil import lcm
+    return reduce(lambda x, y: lcm(x, y), range(1, 21), 1)
 
 
 def euler_13():
@@ -56,10 +62,10 @@ def euler_21():
     from eutil import divisors
 
     def d(n):
-        return sum(divisors(n)) + 1
+        return sum(sorted(divisors(n))[:-1])
 
     x = []
-    for a in range(10000):
+    for a in range(1, 10000):
         b = d(a)
         if a != b and d(b) == a:
             x.append(a)

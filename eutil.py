@@ -1,11 +1,11 @@
-from math import sqrt
+from math import sqrt, ceil
 
 
 def divisors(n, small=False):
-    d = [i for i in range(2, int(sqrt(n))) if (n % i) == 0]
+    d = [x for x in range(1, int(ceil(sqrt(n))) + 1) if (n % x) == 0]
     if not small:
         d.extend(map(lambda x: n / x, d))
-    return d
+    return list(set(d))
 
 
 def fib():
@@ -37,6 +37,10 @@ def gcd(a, b):
     while b:
         a, b = b, a % b
     return a
+
+
+def lcm(a, b):
+    return (a * b) / gcd(a, b)
 
 
 def totient(n):
