@@ -9,6 +9,12 @@ def euler_1():
     return sum([n for n in range(1000) if n % 3 == 0 or n % 5 == 0])
 
 
+def euler_4():
+    """Find the largest palindrome made from the product of two 3-digit numbers."""
+    palindromes = [i * j for i in range(999, 100, -1) for j in range(990, 100, -11) if str(i * j) == str(i * j)[::-1]]
+    return max(palindromes)
+
+
 def euler_13():
     """Find the first ten digits of the sum of one-hundred 50-digit numbers."""
     numbers = [int(line) for line in open("data/13.txt")]
