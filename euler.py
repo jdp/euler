@@ -47,6 +47,16 @@ def euler_6():
     square_of_sum = sum(range(1, n + 1)) ** 2
     return abs(sum_of_squares - square_of_sum)
 
+
+def euler_7():
+    """Find the 10001st prime."""
+    from itertools import islice
+    from eutil import primes
+
+    n = 10001
+    return islice(primes(), n - 1, n).next()
+
+
 def euler_13():
     """Find the first ten digits of the sum of one-hundred 50-digit numbers."""
     numbers = [int(line) for line in open("data/13.txt")]
