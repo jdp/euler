@@ -222,7 +222,7 @@ if __name__ == '__main__':
 
     def solved_problems():
         problems = [(name, int(name[6:])) for name in globals().keys() if name[:5] == 'euler']
-        return sorted(problems, key=lambda p: int(p[0][6:]))
+        return sorted(problems, key=lambda p: p[1])
 
     parser = argparse.ArgumentParser(description="Run Project Euler solutions")
     parser.add_argument('--summary', action='store_true')
