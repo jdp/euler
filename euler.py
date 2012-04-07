@@ -65,6 +65,17 @@ def euler_8():
     return max([reduce(__mul__, map(int, list(n[i:i + 5]))) for i in range(len(n) - 5)])
 
 
+def euler_9():
+    """Find the only Pythagorean triplet, {a, b, c}, for which a + b + c = 1000."""
+    from math import floor
+
+    for b in range(1, 1001):
+        a = (500000.0 - 1000 * b) / (1000 - b)
+        if floor(a) == a:
+            c = 1000 - a - b
+            return int(a * b * c)
+
+
 def euler_13():
     """Find the first ten digits of the sum of one-hundred 50-digit numbers."""
     numbers = [int(line) for line in open("data/13.txt")]
