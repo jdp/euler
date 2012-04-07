@@ -64,13 +64,7 @@ def euler_21():
     def d(n):
         return sum(sorted(divisors(n))[:-1])
 
-    x = []
-    for a in range(1, 10000):
-        b = d(a)
-        if a != b and d(b) == a:
-            x.append(a)
-
-    return sum(x)
+    return sum([a for a in range(1, 10000) if a != d(a) and d(d(a)) == a])
 
 
 def euler_22():
