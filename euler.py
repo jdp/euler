@@ -57,6 +57,14 @@ def euler_7():
     return islice(primes(), n - 1, n).next()
 
 
+def euler_8():
+    """Discover the largest product of five consecutive digits in the 1000-digit number."""
+    from operator import __mul__
+
+    n = ''.join([line.strip() for line in open("data/8.txt")])
+    return max([reduce(__mul__, map(int, list(n[i:i + 5]))) for i in range(len(n) - 5)])
+
+
 def euler_13():
     """Find the first ten digits of the sum of one-hundred 50-digit numbers."""
     numbers = [int(line) for line in open("data/13.txt")]
