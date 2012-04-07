@@ -4,6 +4,11 @@ import argparse
 import sys
 
 
+def euler_1():
+    """Add all the natural numbers below one thousand that are multiples of 3 or 5."""
+    return sum([n for n in range(1000) if n % 3 == 0 or n % 5 == 0])
+
+
 def euler_13():
     """Find the first ten digits of the sum of one-hundred 50-digit numbers."""
     numbers = [int(line) for line in open("data/13.txt")]
