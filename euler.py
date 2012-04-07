@@ -9,6 +9,17 @@ def euler_1():
     return sum([n for n in range(1000) if n % 3 == 0 or n % 5 == 0])
 
 
+def euler_3():
+    """Find the largest prime factor of a composite number."""
+    from itertools import takewhile
+    from eutil import divisors, primes
+
+    num = 600851475143
+    ds = set(divisors(num, small=True))
+    ps = set(takewhile(lambda p: p <= max(ds), primes()))
+    return max(ps & ds)
+
+
 def euler_4():
     """Find the largest palindrome made from the product of two 3-digit numbers."""
     palindromes = [i * j for i in range(999, 100, -1) for j in range(990, 100, -11) if str(i * j) == str(i * j)[::-1]]
@@ -118,19 +129,27 @@ if __name__ == '__main__':
         print func()
         print
 
-    parser = argparse.ArgumentParser(description="Run Project Euler solutions")
-    parser.add_argument('--problem', '-p', action='append', type=int)
-    args = parser.parse_args()
-    if args.problem is None:
+    def solved_problems():
         problems = [(name, int(name[6:])) for name in globals().keys() if name[:5] == 'euler']
-        problems = sorted(problems, key=lambda p: int(p[0][6:]))
-        for problem in problems:
-            print_solution(problem[1], globals()[problem[0]])
-    else:
-        for problem in args.problem:
+        return sorted(problems, key=lambda p: int(p[0][6:]))
+
+    parser = argparse.ArgumentParser(description="Run Project Euler solutions")
+    parser.add_argument('--summary', action='store_true')
+    parser.add_argument('--problems', '-p', nargs='*', type=int)
+    args = parser.parse_args()
+    print args
+
+    if args.summary:
+        problem_nos = map(lambda p: p[1], solved_problems())
+        print len(problem_nos), "problems are solved:", ", ".join(map(str, problem_nos))
+    elif isinstance(args.problems, list):
+        for problem in args.problems:
             name = 'euler_' + str(problem)
             if name in globals():
                 print_solution(int(problem), globals()[name])
             else:
                 print problem, "is not yet solved!"
                 sys.exit(1)
+    else:
+        for problem in solved_problems():
+            print_solution(problem[1], globals()[problem[0]])

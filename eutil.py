@@ -1,9 +1,10 @@
 from math import sqrt
 
 
-def divisors(n):
+def divisors(n, small=False):
     d = [i for i in range(2, int(sqrt(n))) if (n % i) == 0]
-    d.extend(map(lambda x: n / x, d))
+    if not small:
+        d.extend(map(lambda x: n / x, d))
     return d
 
 
