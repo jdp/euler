@@ -9,6 +9,14 @@ def euler_1():
     return sum([n for n in range(1000) if n % 3 == 0 or n % 5 == 0])
 
 
+def euler_2():
+    """By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms."""
+    from itertools import takewhile
+    from eutil import fib
+
+    return sum(filter(lambda x: x % 2 == 0, takewhile(lambda y: y < 4000000, fib())))
+
+
 def euler_3():
     """Find the largest prime factor of a composite number."""
     from itertools import takewhile
@@ -124,8 +132,10 @@ def euler_69():
 
 if __name__ == '__main__':
     def print_solution(id, func):
+        from inspect import cleandoc
+
         print "-- Problem", id
-        print func.__doc__
+        print cleandoc(func.__doc__)
         print func()
         print
 
@@ -137,7 +147,6 @@ if __name__ == '__main__':
     parser.add_argument('--summary', action='store_true')
     parser.add_argument('--problems', '-p', nargs='*', type=int)
     args = parser.parse_args()
-    print args
 
     if args.summary:
         problem_nos = map(lambda p: p[1], solved_problems())
