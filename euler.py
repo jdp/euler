@@ -40,6 +40,13 @@ def euler_5():
     return reduce(lambda x, y: lcm(x, y), range(1, 21), 1)
 
 
+def euler_6():
+    """What is the difference between the sum of the squares and the square of the sums?"""
+    n = 100
+    sum_of_squares = sum(map(lambda x: x ** 2, range(1, n + 1)))
+    square_of_sum = sum(range(1, n + 1)) ** 2
+    return abs(sum_of_squares - square_of_sum)
+
 def euler_13():
     """Find the first ten digits of the sum of one-hundred 50-digit numbers."""
     numbers = [int(line) for line in open("data/13.txt")]
