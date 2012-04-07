@@ -76,6 +76,14 @@ def euler_9():
             return int(a * b * c)
 
 
+def euler_10():
+    """Calculate the sum of all the primes below two million."""
+    from itertools import takewhile
+    from eutil import primes
+
+    return sum(takewhile(lambda p: p < 2000000, primes()))
+
+
 def euler_13():
     """Find the first ten digits of the sum of one-hundred 50-digit numbers."""
     numbers = [int(line) for line in open("data/13.txt")]
