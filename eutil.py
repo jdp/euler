@@ -1,4 +1,5 @@
 from math import sqrt, ceil
+from functools import partial
 
 
 def take(n, iterable):
@@ -13,6 +14,16 @@ def nth(iterable, n, default=None):
     from itertools import islice
 
     return next(islice(iterable, n, None), default)
+
+
+def iterate(func, x):
+    while True:
+        yield func(x)
+        x = func(x)
+
+
+def digits(n):
+    return map(int, list(str(n)))
 
 
 def divisors(n, small=False):
@@ -43,10 +54,10 @@ def primes():
         q += 1
 
 
-def triangle_numbers():
+def triangle_numbers(start=1):
     from itertools import count, imap
 
-    return imap(lambda n: n * (n + 1) / 2, count(start=1))
+    return imap(lambda n: n * (n + 1) / 2, count(start=start))
 
 
 def rotations(lst):
@@ -65,3 +76,32 @@ def lcm(a, b):
 
 def totient(n):
     return len([i for i in range(1, n) if gcd(i, n) == 1])
+
+class memoized(object):
+    """Decorator that caches a function's return value each time it is called.
+    If called later with the same arguments, the cached value is returned, and
+    not re-evaluated.
+    """
+    def __init__(self, func):
+        self.func = func
+        self.cache = {}
+
+    def __call__(self, *args):
+        try:
+            return self.cache[args]
+        except KeyError:
+            value = self.func(*args)
+            self.cache[args] = value
+            return value
+        except TypeError:
+            # uncachable -- for instance, passing a list as an argument.
+            # Better to not cache than to blow up entirely.
+            return self.func(*args)
+
+    def __repr__(self):
+        """Return the function's docstring."""
+        return self.func.__doc__
+
+    def __get__(self, obj, objtype):
+        """Support instance methods."""
+        return partial(self.__call__, obj)

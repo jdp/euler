@@ -226,6 +226,37 @@ def euler_69():
         n = n * p
     return n
 
+
+def euler_92():
+    """Investigating a square digits number chain with a surprising property."""
+    from itertools import dropwhile
+    from math import factorial
+    from operator import mul
+    from eutil import iterate, digits
+
+    def sum_sq_digits(n):
+        return sum([x ** 2 for x in digits(n)])
+
+    # TODO: Make this generic, and not totally ugly
+    def combos():
+        for a in range(10):
+            for b in range(a + 1):
+                for c in range(b + 1):
+                    for d in range(c + 1):
+                        for e in range(d + 1):
+                            for f in range(e + 1):
+                                for g in range(f + 1):
+                                    yield a + (b * 10) + (c * 100) + (d * 1000) + (e * 10000) + (f * 100000) + (g * 1000000)
+
+    def multinomial(n):
+        alphabet = dict([(d, digits(n).count(d)) for d in set(digits(n))])
+        alphabet[0] = 7 - len(str(n))
+        return factorial(sum(alphabet.values())) / reduce(mul, map(factorial, alphabet.values()))
+
+    unhappy = set(i for i in range(1, 568) if 89 == next(dropwhile(lambda x: x != 1 and x != 89, iterate(sum_sq_digits, i))))
+    return sum([multinomial(i) for i in combos() if sum_sq_digits(i) in unhappy])
+
+
 if __name__ == '__main__':
     def print_solution(id, func):
         from inspect import cleandoc
