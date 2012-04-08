@@ -50,11 +50,9 @@ def euler_6():
 
 def euler_7():
     """Find the 10001st prime."""
-    from itertools import islice
-    from eutil import primes
+    from eutil import primes, nth
 
-    n = 10001
-    return islice(primes(), n - 1, n).next()
+    return nth(primes(), 10000)
 
 
 def euler_8():
@@ -89,7 +87,7 @@ def euler_12():
     from itertools import dropwhile
     from eutil import triangle_numbers, divisors
 
-    return dropwhile(lambda x: len(divisors(x)) < 500, triangle_numbers()).next()
+    return next(dropwhile(lambda x: len(divisors(x)) < 500, triangle_numbers()))
 
 
 def euler_13():
@@ -164,9 +162,10 @@ def euler_23():
 
 def euler_24():
     """What is the millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9?"""
-    from itertools import islice, permutations
+    from itertools import permutations
+    from eutil import nth
 
-    return "".join(map(str, islice(permutations(range(10), 10), 999999, 1000000).next()))
+    return "".join(map(str, nth(permutations(range(10), 10), 999999)))
 
 
 def euler_25():

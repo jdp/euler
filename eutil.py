@@ -1,11 +1,18 @@
 from math import sqrt, ceil
 
 
-def take(iterable, n):
+def take(n, iterable):
     "Return first n items of the iterable as a list"
     from itertools import islice
 
     return list(islice(iterable, n))
+
+
+def nth(iterable, n, default=None):
+    "Returns the nth item or a default value"
+    from itertools import islice
+
+    return next(islice(iterable, n, None), default)
 
 
 def divisors(n, small=False):
