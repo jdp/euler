@@ -37,10 +37,9 @@ def primes():
 
 
 def triangle_numbers():
-    a = 1
-    while True:
-        yield sum(range(1, a + 1))
-        a += 1
+    from itertools import count, imap
+
+    return imap(lambda n: n * (n + 1) / 2, count(start=1))
 
 
 def rotations(lst):
