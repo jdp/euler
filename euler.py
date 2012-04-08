@@ -154,6 +154,14 @@ def euler_22():
     return sum([(i * sum([(ord(c) - 64) for c in name])) for i, name in enumerate(names, 1)])
 
 
+def euler_23():
+    """Find the sum of all the positive integers which cannot be written as the sum of two abundant numbers."""
+    from eutil import divisors
+
+    abundants = set([n for n in range(1, 20162) if sum(sorted(divisors(n))[:-1]) > n])
+    return sum(n for n in range(1, 20162) if not any(((n - a) in abundants) for a in abundants))
+
+
 def euler_24():
     """What is the millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9?"""
     from itertools import islice, permutations
