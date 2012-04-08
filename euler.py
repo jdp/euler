@@ -205,6 +205,28 @@ def euler_63():
     return sum([int(1 / (1 - log10(n))) for n in range(1, 10)])
 
 
+def euler_65():
+    """Find the sum of digits in the numerator of the 100th convergent of the continued fraction for e."""
+    from eutil import nth, digits
+
+    def sequence():
+        num = []
+        t = 0
+        while True:
+            if t == 0:
+                num.append(1)
+            elif t == 1:
+                num.append(2)
+            else:
+                coef = t / 3 * 2 if t % 3 == 0 else 1
+                num.append(coef * num[t - 1] + num[t - 2])
+            yield num[-1]
+            t += 1
+
+    return sum(digits(nth(sequence(), 100)))
+
+
+
 def euler_67():
     """Using an efficient algorithm find the maximal sum in the triangle?"""
     triangle = [([0] + map(int, line.split()) + [0]) for line in open("data/67.txt")]
