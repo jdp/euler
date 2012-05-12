@@ -196,18 +196,11 @@ def euler_29():
 
 def euler_35():
     """How many circular primes are there below one million?"""
-    from operator import __and__
     from itertools import takewhile
     from eutil import primes, rotations
 
-    circular = 0
-    max_n = 1000000
-    ps = set(takewhile(lambda p: p < max_n, primes()))
-    for p in ps:
-        rotate_perms = [int("".join(r)) for r in rotations(list(str(p)))]
-        if reduce(__and__, [(x in ps) for x in rotate_perms]):
-            circular += 1
-    return circular
+    ps = set(takewhile(lambda p: p < 1000000, primes()))
+    return len(filter(None, [all((x in ps) for x in [int(r) for r in rotations(str(p))]) for p in ps]))
 
 
 def euler_63():
