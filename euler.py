@@ -231,7 +231,6 @@ def euler_65():
     return sum(digits(nth(sequence(), 100)))
 
 
-
 def euler_67():
     """Using an efficient algorithm find the maximal sum in the triangle?"""
     triangle = [([0] + map(int, line.split()) + [0]) for line in open("data/67.txt")]
@@ -252,6 +251,24 @@ def euler_69():
             break
         n = n * p
     return n
+
+
+def euler_81():
+    "Find the minimal path sum from the top left to the bottom right by moving right and down."
+    matrix = [map(int, line.split(",")) for line in open("data/81.txt").readlines()]
+
+    for y in range(len(matrix) - 1, -1, -1):
+        for x in range(len(matrix[0]) - 1, -1, -1):
+            if x == len(matrix[0]) - 1 and y == len(matrix) - 1:
+                continue
+            elif x == len(matrix[0]) - 1:
+                matrix[y][x] += matrix[y + 1][x]
+            elif y == len(matrix) - 1:
+                matrix[y][x] += matrix[y][x + 1]
+            else:
+                matrix[y][x] += min(matrix[y + 1][x], matrix[y][x + 1])
+
+    return matrix[0][0]
 
 
 def euler_92():
