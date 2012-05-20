@@ -190,13 +190,13 @@ def euler_26():
 
 def euler_27():
     "Find a quadratic formula that produces the maximum number of primes for consecutive values of n."
-    from itertools import chain, product, takewhile
-    from eutil import primes, is_prime, sequence
+    from itertools import chain, imap, product, takewhile, tee
+    from eutil import ilen, primes, is_prime, sequence
 
     a_s = xrange(-999, 1000)
-    prime_b = list(takewhile(lambda p: p < 1000, primes()))
-    b_s = chain(prime_b, [-x for x in prime_b])
-    seqs = [(len(list(takewhile(is_prime, sequence(lambda n: n ** 2 + a * n + b)))), a, b) for a, b in product(a_s, b_s)]
+    ps = tee(takewhile(lambda p: p < 1000, primes()))
+    b_s = chain(ps[0], imap(lambda x: -x, ps[1]))
+    seqs = [(ilen(takewhile(is_prime, sequence(lambda n: n ** 2 + a * n + b))), a, b) for a, b in product(a_s, b_s)]
     seq = max(seqs, key=lambda t: t[0])
     return seq[1] * seq[2]
 

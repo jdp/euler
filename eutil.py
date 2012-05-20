@@ -107,6 +107,10 @@ def rotations(lst):
     return [lst[i:] + lst[0:i] for i in range(len(lst))]
 
 
+def ilen(iterable):
+    return sum(1 for _ in iterable)
+
+
 @memoized
 def gcd(a, b):
     while b:
