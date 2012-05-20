@@ -268,7 +268,7 @@ def euler_69():
 
 def euler_81():
     "Find the minimal path sum from the top left to the bottom right by moving right and down."
-    matrix = [map(int, line.split(",")) for line in open("data/81.txt").readlines()]
+    matrix = [map(int, line.split(",")) for line in open("data/81.txt")]
 
     for y in range(len(matrix) - 1, -1, -1):
         for x in range(len(matrix[0]) - 1, -1, -1):
