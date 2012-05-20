@@ -171,9 +171,9 @@ def euler_24():
 def euler_25():
     """What is the first term in the Fibonacci sequence to contain 1000 digits?"""
     from itertools import takewhile
-    from eutil import fib
+    from eutil import fib, ilen
 
-    return len(list(takewhile(lambda x: len(str(x)) < 1000, fib())))
+    return ilen(takewhile(lambda x: len(str(x)) < 1000, fib()))
 
 
 def euler_26():
