@@ -183,7 +183,7 @@ def euler_26():
 
     ps = list(takewhile(lambda x: x < 1000, primes()))
     for p in reversed(ps):
-        c = dropwhile(lambda x: (pow(10, x) - 1) % p != 0, count(start=1)).next()
+        c = next(dropwhile(lambda x: (pow(10, x) - 1) % p != 0, count(start=1)))
         if p - c == 1:
             return p
 
