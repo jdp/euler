@@ -216,6 +216,21 @@ def euler_35():
     return len(filter(None, [all((x in ps) for x in [int(r) for r in rotations(str(p))]) for p in ps]))
 
 
+def euler_36():
+    "Find the sum of all numbers less than one million, which are palindromic in base 10 and base 2."
+    from itertools import takewhile
+
+    def palindromes():
+        n = 0
+        while True:
+            if str(n) == str(n)[::-1]:
+                yield n
+            n += 1
+
+    ps = takewhile(lambda n: n < 1000000, palindromes())
+    return sum(p for p in ps if bin(p)[2:] == bin(p)[2:][::-1])
+
+
 def euler_63():
     """How many n-digit positive integers exist which are also an nth power?"""
     from math import log10
