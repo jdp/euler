@@ -231,6 +231,26 @@ def euler_36():
     return sum(p for p in ps if bin(p)[2:] == bin(p)[2:][::-1])
 
 
+def euler_45():
+    "After 40755, what is the next triangle number that is also pentagonal and hexagonal?"
+    from itertools import count, ifilter, imap
+    from math import sqrt, floor
+
+    def is_pentagonal(x):
+        n = (sqrt((24 * x) + 1) + 1) / 6
+        return n == floor(n)
+
+    def is_hexagonal(x):
+        n = (sqrt((8 * x) + 1) + 1) / 4
+        return n == floor(n)
+
+    def nth_triangle_number(n):
+        return (n * (n + 1)) / 2
+
+    triangle_numbers = imap(nth_triangle_number, count(start=286))
+    return next(ifilter(lambda x: is_pentagonal(x) and is_hexagonal(x), triangle_numbers))
+
+
 def euler_63():
     """How many n-digit positive integers exist which are also an nth power?"""
     from math import log10
